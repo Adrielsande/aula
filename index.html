@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Jogo Clique Rápido</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#1e3c72,#2a5298);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+#game{
+    text-align:center;
+}
+
+#area{
+    width:500px;
+    height:400px;
+    background:white;
+    margin-top:20px;
+    position:relative;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+#target{
+    width:50px;
+    height:50px;
+    background:red;
+    position:absolute;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#00c853;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+    <h1>🎮 Clique no Quadrado</h1>
+    <p>Pontos: <span id="score">0</span></p>
+    <button onclick="startGame()">Começar</button>
+
+    <div id="area">
+        <div id="target"></div>
+    </div>
+</div>
+
+<script>
+
+let score = 0
+let gameInterval
+const target = document.getElementById("target")
+const area = document.getElementById("area")
+
+function startGame(){
+    score = 0
+    document.getElementById("score").textContent = score
+
+    moveTarget()
+
+    clearInterval(gameInterval)
+    gameInterval = setInterval(moveTarget,1000)
+}
+
+function moveTarget(){
+    const maxX = area.clientWidth - 50
+    const maxY = area.clientHeight - 50
+
+    const x = Math.random() * maxX
+    const y = Math.random() * maxY
+
+    target.style.left = x + "px"
+    target.style.top = y + "px"
+}
+
+target.onclick = function(){
+    score++
+    document.getElementById("score").textContent = score
+    moveTarget()
+}
+
+</script>
+
+</body>
+</html>
